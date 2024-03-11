@@ -1,8 +1,10 @@
 package com.example.springboot_hongpark.controller;
 
 import com.example.springboot_hongpark.dto.ArticleForm;
+import com.example.springboot_hongpark.dto.CommentDto;
 import com.example.springboot_hongpark.entity.Article;
 import com.example.springboot_hongpark.repository.ArticleRepository;
+import com.example.springboot_hongpark.service.CommentService;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.antlr.v4.runtime.misc.LogManager;
@@ -18,6 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @Slf4j
 public class ArticleController {
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired // 스프링 부트가 미리 생성해놓은 객체를가져다가 자동연결
     private ArticleRepository articleRepository;
@@ -46,9 +51,11 @@ public class ArticleController {
 
         // 1. id로 데이터를 가져옴.
         Article articleEntity = articleRepository.findById(id).orElse(null);
+        List<CommentDto> commentDtos = commentService.comments(id);
 
         // 2. 가져온 데이터를 모델에 등록.
         model.addAttribute("article", articleEntity);
+        model.addAttribute("commentDtos", commentDtos);
 
         // 3. 보여줄 페이지 설정.
         return "articles/show";
