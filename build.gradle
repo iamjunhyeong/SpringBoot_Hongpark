@@ -16,6 +16,9 @@ repositories {
 }
 
 dependencies {
+    // 28강: db 드라이버 추가!
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+
     // 10강: 롬복 추가
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -28,11 +31,11 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs << "-parameters"
-}
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}
+//
+//tasks.withType(JavaCompile) {
+//    options.compilerArgs << "-parameters"
+//}
 
